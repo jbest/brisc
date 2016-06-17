@@ -9,12 +9,14 @@ BRISC is currently stable but should not yet be used in a production environment
 ## Quick Start
 The following steps will be familiar to anyone accustomed to running Django apps, but more detailed instructions are fortcoming.
 
+```
 git clone https://github.com/jbest/brisc.git
 virtualenv env
 source env/bin/activate
 pip install -r requirements-local.txt
 python manage.py runserver 127.0.0.1:8000 # To make only accessible locally on your computer
 go to http://127.0.0.1:8000
+```
 
 
 The majority of the taxon names were generously provided by Tropicos (Tropicos.org, Missouri Botanical Garden, 08 Apr 2016, www.tropicos.org). 
