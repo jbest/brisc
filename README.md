@@ -7,14 +7,14 @@ Details of the BRIT inventory are available at http://www.brit.org/herbarium/inv
 BRISC is currently stable but should not yet be used in a production environment. Since the BRIT inventory was conducted with the server only accessible within the BRIT facility, no precautions were made to require login to protect the quality of the data from bots or mischievous humans.
 
 ## Quick Start
-The following steps will be familiar to anyone accustomed to running Django apps, but more detailed instructions are fortcoming.
+The following steps will be familiar to anyone accustomed to running Django apps, but more detailed instructions are forthcoming.
 
 ```
 git clone https://github.com/jbest/brisc.git
 virtualenv env
 source env/bin/activate
 pip install -r requirements-local.txt
-python manage.py runserver 127.0.0.1:8000 # To make only accessible locally on your computer
+python manage.py runserver 127.0.0.1:8000
 go to http://127.0.0.1:8000
 ```
 
