@@ -1,0 +1,14 @@
+{"taxon":[
+{% for taxon_id, taxon_name in taxa_list %}
+{
+	"id": "{{ taxon_id }}",
+	"name": "{{ taxon_name }}"
+}
+{% if not forloop.last %}
+,
+{% endif %}
+{% empty %}
+NONE
+{% endfor %}
+
+]}

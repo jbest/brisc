@@ -1,0 +1,7 @@
+<select>
+{% for taxon_id, taxon_name in taxa_list %}
+<option value="{{ taxon_id }}">{{ taxon_name }}</option>
+{% empty %}
+<option value="0">--NONE--</option>
+{% endfor %}
+</select>

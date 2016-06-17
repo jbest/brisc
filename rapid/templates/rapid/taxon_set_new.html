@@ -1,0 +1,7 @@
+
+<!-- customizing - https://docs.djangoproject.com/en/1.7/topics/forms/#rendering-fields-manually -->
+<form action="/inventory/taxonset/new/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>

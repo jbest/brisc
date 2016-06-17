@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    </head>
+    <body>
+<select>
+ <option value="1">something1</option>
+ <option value="2">something1</option>
+ <option value="3">something2</option>
+ <option value="4">something2</option>
+ <option value="5">something2</option>
+ <option value="6">something3</option>
+ <option value="7">something3</option>
+ <option value="8">something3</option>
+</select>
+<input type="text" >
+
+<script type="text/javascript">
+// from http://stackoverflow.com/a/1448082/560798
+$(document).ready(function(){
+ $('input').change(function(){
+  var filter = $(this).val();
+  $('option').each(function(){
+   if ($(this).val() == filter) {
+    //$(this).show();
+    //$(this).hidden = false;
+    $(this).remove();
+   } else {
+    //$(this).hide();
+    //$(this).hidden = true;
+    //$(this).remove();
+   }
+  $('select').val(filter);
+  })
+ })
+})
+</script>
+
+<script>
+
+</script>
+
+    </body>
+</html>

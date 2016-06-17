@@ -1,0 +1,12 @@
+{{ session.id }} - {{ session.recorder }} , {{ session.counter }} 
+<a href="{% url 'new_taxon_set' %}">new taxon set</a>
+<p>
+	TaxonSets:<br />
+{% for taxonSet in taxonSet_list %}
+group: {{ taxonSet.group }}<br />
+family: {{ taxonSet.family }}<br />
+genus: {{ taxonSet.genus }}<br />
+species: {{ taxonSet.species }}<br />
+count: {{ taxonSet.count }}<br />
+{% endfor %}
+</p>

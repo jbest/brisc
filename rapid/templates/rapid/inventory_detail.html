@@ -1,0 +1,67 @@
+{% load bootstrap3 %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% bootstrap_css %}
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.2">
+    <title>BRIT Inventory</title>
+  </head>
+ <body>
+ 	
+<div class="container">
+{% if msg %}
+<div class="alert alert-success" role="alert">{{ msg }}</div>
+{% endif %}
+<h3>Inventory: {{ inventory.id }} - 
+{{ inventory.description }}
+</h3>
+<p>
+When you are ready to begin inventorying, start a new session.<br />
+<br />
+ <a class="btn btn-primary" role="button" href="{% url 'new_session' %}">New Session</a>
+
+<br />
+<br />
+  <a class="btn btn-default" role="button" href="{% url 'index' %}">BRISC Home</a>
+<br />
+<br />
+<h4>Statistics</h4>
+Inventory count: {{inventory_specimen_count}}<br />
+Sessions: {{inventory_session_count}}<br />
+<a class="btn btn-default" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  Show previous sessions
+</a>
+<a class="btn btn-default" role="button" href="{% url 'inventory_stats' inventory.id %}">Inventory Stats</a>
+<div class="collapse" id="collapseExample">
+  <div class="well">
+    <table class="table-bordered table-condensed">
+      <thead>
+        <th>Session</th>
+        <th>Team</th>
+        <th>Start</th>
+        <th>End</th>
+      </thead>
+      <tbody>
+{% for session in session_list %}
+<tr>
+<td><a href="{% url 'session_detail' session.id %}">{{session.id}}</a></td>
+<td>{{ session.recorder }}, {{ session.counter }}</td>
+<td>{{ session.startTime }}</td>
+<td>{{ session.endTime }}</td>
+
+</tr>
+{% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+</p>
+</div>
+</body>
+</html>

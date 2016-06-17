@@ -1,0 +1,383 @@
+{% load bootstrap3 %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% bootstrap_css %}
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script type="text/javascript" src="jquery.select-filter.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#apply-select-filter').on('click', function() {
+        $('#example-element').selectFilter({
+            width: '100%',
+            minimumSelectElementSize: 5,
+            inputLocation: 'above'
+        });
+
+        $(this).hide();
+    });
+});
+
+    </script>
+
+    {% bootstrap_javascript %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>BRIT Inventory</title>
+  </head>
+  <body>
+    <div class="container">
+      {% if msg %}
+      <div class="alert alert-success" role="alert">{{ msg }}</div>
+      {% endif %}
+
+<h1>jquery-select-filter demonstration</h1>
+<div>
+    <select id="example-element">
+        <option>Duarremy</option>
+        <option>Rodd</option>
+        <option>Frett</option>
+        <option>Keil</option>
+        <option>Nathane</option>
+        <option>Wadon</option>
+        <option>Dallary</option>
+        <option>Gabristin</option>
+        <option>Roberedro</option>
+        <option>Jerrenry</option>
+        <option>Glarl</option>
+        <option>Chrian</option>
+        <option>Paurenny</option>
+        <option>Shine</option>
+        <option>Danna</option>
+        <option>Jacherry</option>
+        <option>Veristin</option>
+        <option>Arley</option>
+        <option>Leorgia</option>
+        <option>Jessa</option>
+        <option>Glarl</option>
+        <option>Chrian</option>
+        <option>Paurenny</option>
+        <option>Shine</option>
+        <option>Danna</option>
+        <option>Jacherry</option>
+        <option>Veristin</option>
+        <option>Arley</option>
+        <option>Leorgia</option>
+        <option>Jessa</option>
+        <option>Finato</option>
+        <option>Vustreli</option>
+        <option>Tann</option>
+        <option>Ralaid</option>
+        <option>Eowugai</option>
+        <option>Tard</option>
+        <option>Vicaravos</option>
+        <option>Dhabiaz</option>
+        <option>Thuilus</option>
+        <option>Ezean</option>
+    </select>
+    <button href="#" id="apply-select-filter">apply select filter</button>
+</div>
+
+
+      
+      <h2>Taxon Count</h2>
+      <form action="" method="POST" id="countForm">
+        {% csrf_token %}
+        <h3>Location</h3>
+        Cabinet id: 
+        <input type="text" name="container" value={{ container }}><br />
+        <br />
+        Folder type:
+        <select id="foldertype" name="foldertype_id">
+          {% for foldertype in foldertypes %}
+            <option value="{{ foldertype.pk }}"{% if foldertype.pk|add:0 == folder_id_selected|add:0 %} selected{% endif %}>{{ foldertype.name }}-{{ foldertype.color }}</option>
+          {% endfor %}
+        </select> <span class="label label-danger">Check!</span><br />
+        <h3>Taxonomy</h3>
+        Group: <select id="group" name="group_id">
+          {% for group in groups %}
+            <option value="{{ group.pk }}"{% if group.pk|add:0 == taxaDict.group_id|add:0 %} selected{% endif %}>{{ group.name }}</option>
+          {% endfor %}
+        </select>
+        <!-- group: {{ taxaDict.group_id }}--><input id="group-filter" type="text" /><br />
+        <br />
+        Family: <select id="family" name="family_id">
+          {% for family in families %}
+            <option value="{{ family.pk }}"{% if family.pk|add:0 == taxaDict.family_id|add:0 %} selected{% endif %}>{{ family.name }}</option>
+            {% empty %}
+            <option value="-1">No families - select a group</option>
+          {% endfor %}
+        </select>
+        <!-- family_id: {{ taxaDict.family_id }}--><input id="family-filter" type="text" /><br /> 
+        <br />
+        Genus: <select id="genus" name="genus_id">
+          {% for genus in genera %}
+            <option value="{{ genus.pk }}"{% if genus.pk|add:0 == taxaDict.genus_id|add:0 %} selected{% endif %}>{{ genus.name }}</option>
+            {% empty %}
+            <option value="-1">No genera - select a family</option>
+          {% endfor %}
+        </select>
+        <!--genus_id: {{ taxaDict.genus_id }} --><input id="genus-filter" type="text" /><br />
+            <!-- Button trigger modal -->
+<button id="add-genus-btn" type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#newGenusModal">
+  Add Genus to Selected Family
+</button>
+<br />
+        <br />
+        Species: <select id="species" name="species_id">
+          {% for specific_epithet in species %}
+            <option value="{{ specific_epithet.pk }}"{% if specific_epithet.pk|add:0 == taxaDict.species_id|add:0 %} selected{% endif %}>{{ specific_epithet.name }}</option>
+          {% endfor %}
+        </select> <span class="label label-danger"> ! </span> 
+        <!-- species_id: {{ taxaDict.species_id }} -->
+ <button id="add-species-btn" type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#newSpeciesModal">
+  Add Species to Selected Genus
+</button>
+<input id="species-filter" type="text" />
+<br />
+
+        <br />
+        count: <input type="number" name="count" id="count" value=1> <span class="label label-danger">Check!</span>
+        <br />
+        </p>
+        Notes: <input type="text" name="note" value=''><br />
+        <br />
+        <br />
+        </p>
+        <input type="submit" value="Record this count" class="btn btn-primary" id="submit_count">
+      </form>
+      <strong>End the session </strong>(button below) when:
+      <ul>
+        <li>you complete a cabinet</li>
+        <li>you need a break (mark your spot in the cabinet!)</li>
+        <li>you are done for the day (finish the cabinet first!)</li>
+      </ul>
+      <a class="btn btn-default" href="{% url 'end_session' %}" role="button">End Session</a><br />
+        <h4>Details</h4>
+        Current Inventory: {{ current_inventory }}<br />
+        Current Session: {{ current_session }}<br />
+        <br />
+        <a class="btn btn-default" target="_blank" href="{% url 'session_detail' current_session %}" role="button">Previous Counts (new window)</a><br />
+    </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="newGenusModal" tabindex="-1" role="dialog" aria-labelledby="newGenusModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="newGenusModalLabel">Add Genus to Family</h4>
+      </div>
+      <div class="modal-body">        
+        <form id="newGenusForm" method="post">
+          {% csrf_token %}
+          Family: <input id="fam-name" disabled>
+          Family ID: <input id="fam-id" disabled><input type="hidden" name="parent_id" id="gen_parent_id"><br />
+          <input type="hidden" value="family" name="parent_rank" id="parent_rank">
+          New genus name: <input name="child_name" id="child_name">
+            <button id="newGenusFormSubmit" type="submit">Submit</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newSpeciesModal" tabindex="-1" role="dialog" aria-labelledby="newSpeciesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="newSpeciesModalLabel">Add Species to Genus</h4>
+      </div>
+      <div class="modal-body">        
+        <form id="newSpeciesForm" method="post">
+          {% csrf_token %}
+          Genus: <input id="gen-name" disabled>
+          Genus ID: <input id="gen-id" disabled><input type="hidden" name="parent_id" id="sp_parent_id"><br />
+          <input type="hidden" value="genus" name="parent_rank" id="parent_rank">
+          New species name: <input name="child_name" id="child_name">
+            <button id="newSpeciesFormSubmit" type="submit">Submit</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+<script type="text/JavaScript">
+// http://stackoverflow.com/questions/9909326/clear-dropdownlist-with-jquery
+//https://developerdan77.wordpress.com/2011/10/14/dynamically-populate-a-select-element-from-json-data-with-jquery/
+function fillTaxaDropDown(url, dropdown) {
+  $.ajax({
+    url: url,
+    dataType: "json",
+    success: function(data) {
+      // Clear drop down list
+      //$(dropdown).empty();
+      $(dropdown).html('');
+      // Fill drop down list with new data
+      //alert("Data: " + JSON.stringify(data) );
+      $.each(data.taxon, function(key, val) {
+        //alert("each-data2: " + key + val );
+        $(dropdown).append('<option value="' + val.id + '">' + val.name + '</option>');
+      })
+    },
+    error: function() {
+      //if there is an error append a 'none available' option
+      $(dropdown).html('<option value="-1">none available</option>');
+    }
+  })
+};
+
+// http://www.lessanvaezi.com/filter-select-list-options/
+// http://jsbin.com/egogeh/edit?html,js,output
+jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
+    return this.each(function() {
+        var select = this;
+        var options = [];
+        $(select).find('option').each(function() {
+            options.push({value: $(this).val(), text: $(this).text()});
+        });
+        $(select).data('options', options);
+        $(textbox).bind('change keyup', function() {
+            var options = $(select).empty().data('options');
+            var search = $(this).val().trim();
+            var regex = new RegExp(search,"gi");
+          
+            $.each(options, function(i) {
+                var option = options[i];
+                if(option.text.match(regex) !== null) {
+                    $(select).append(
+                       $('<option>').text(option.text).val(option.value)
+                    );
+                }
+            });
+            if (selectSingleMatch === true && $(select).children().length === 1) {
+                $(select).children().get(0).selected = true;
+            }
+        });            
+    });
+};
+
+$(function() {
+  $('#group').filterByText($('#group-filter'), false);
+  $("select option").click(function(){
+    alert(1);
+  });
+});
+
+$(function() {
+  $('#family').filterByText($('#family-filter'), false);
+  $("select option").click(function(){
+    //alert(1);
+  });
+});
+
+$(function() {
+    $('#species').filterByText($('#species-filter'), false);
+  $("select option").click(function(){
+    alert(1);
+  });
+});
+
+
+$("#group").change(function(data) {
+  //alert( "Handler for .change() called." );
+  fillTaxaDropDown('{% url 'taxa_in_group_base' %}' + $('#group').val() + '/', $('#family'));
+  //fillTaxaDropDown('/inventory/taxa/group/' + $('#group').val() + '/', $('#family'));
+  // Clear subtaxa
+  $('#genus').empty();
+  $('#species').empty();
+
+$(function() {
+  $('#family').filterByText($('#family-filter'), false);
+  $("select option").click(function(){
+    //alert(1);
+  });
+});
+
+});
+
+$("#family").change(function(data) {
+  //alert( "Handler for .change() called." );
+  fillTaxaDropDown('{% url 'taxa_in_family_base' %}' + $('#family').val() + '/', $('#genus'));
+  //fillTaxaDropDown('/inventory/taxa/family/' + $('#family').val() + '/', $('#genus'));
+  // Clear subtaxa
+  $('#species').empty();
+});
+$("#genus").change(function(data) {
+  //alert( $('#genus').val());
+  fillTaxaDropDown('{% url 'taxa_in_genus_base' %}' + $('#genus').val() + '/', $('#species'));
+  //fillTaxaDropDown('/inventory/taxa/genus/' + $('#genus').val() + '/', $('#species'));
+});
+
+$("#add-genus-btn").on("click", function() {
+  //alert( $( this ).text() );
+  //alert($( "#family" ).val() );
+  $("#fam-name").val($("#family option:selected").text())
+  $("#fam-id").val($("#family option:selected").val())
+  $("#gen_parent_id").val($("#family option:selected").val())
+});
+
+$("#add-species-btn").on("click", function() {
+  //alert( $( this ).text() );
+  //alert($( "#family" ).val() );
+  $("#gen-name").val($("#genus option:selected").text())
+  $("#gen-id").val($("#genus option:selected").val())
+  $("#sp_parent_id").val($("#genus option:selected").val())
+});
+
+$('#newGenusFormSubmit').click(function(e) {
+  e.preventDefault();
+  //alert('{% url 'new_taxon' %}');
+  console.log($('#newGenusForm').serialize());
+  $.post('{% url 'new_taxon' %}',
+    $('#newGenusForm').serialize(),
+    function(data, status, xhr) {
+      // do something here with response;
+      alert('New taxon created.');
+    });
+});
+
+$('#newSpeciesFormSubmit').click(function(e) {
+  e.preventDefault();
+  //alert('{% url 'new_taxon' %}');
+  console.log($('#newSpeciesForm').serialize());
+  $.post('{% url 'new_taxon' %}',
+    $('#newSpeciesForm').serialize(),
+    function(data, status, xhr) {
+      // do something here with response;
+      alert('New taxon created.');
+    });
+});
+
+$('#submit_countOLD').click(function(e) {
+  // Can't get form to submit
+  //e.preventDefault();
+  $('#submit_count').prop('disabled', true);
+  //alert('count submitted.');
+  $("#countForm").submit(function(event) {
+    alert("Handler for .submit() called.");
+    //event.preventDefault();
+  });
+});
+
+$('#count').focusin(function(){
+  $(this).val('');
+});
+
+
+</script>
+</html>

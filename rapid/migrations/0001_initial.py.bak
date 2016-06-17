@@ -1,0 +1,134 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Family',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(default=b'NONE', max_length=200)),
+                ('status', models.CharField(max_length=200, null=True, blank=True)),
+                ('source', models.CharField(max_length=200, null=True, blank=True)),
+            ],
+            options={
+                'verbose_name_plural': 'Families',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='FolderType',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(default=b'', max_length=50)),
+                ('color', models.CharField(max_length=50)),
+                ('geographicScope', models.CharField(max_length=50)),
+                ('collection', models.CharField(max_length=50)),
+                ('collectionCode', models.CharField(max_length=10)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Genus',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(default=b'NONE', max_length=200)),
+                ('status', models.CharField(max_length=200, null=True, blank=True)),
+                ('source', models.CharField(max_length=200, null=True, blank=True)),
+                ('family', models.ForeignKey(to='rapid.Family')),
+            ],
+            options={
+                'verbose_name_plural': 'Genera',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Group',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(default=b'NONE', max_length=200)),
+                ('status', models.CharField(max_length=200, null=True, blank=True)),
+                ('source', models.CharField(max_length=200, null=True, blank=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Inventory',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('startDate', models.DateTimeField(verbose_name=b'start date of inventory')),
+                ('endDate', models.DateTimeField(verbose_name=b'end date of inventory')),
+                ('description', models.CharField(max_length=200, null=True, blank=True)),
+                ('notes', models.CharField(max_length=200, null=True, blank=True)),
+            ],
+            options={
+                'verbose_name_plural': 'inventories',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Session',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('startTime', models.DateTimeField(auto_now_add=True, verbose_name=b'start time of session', null=True)),
+                ('endTime', models.DateTimeField(null=True, verbose_name=b'end time of session', blank=True)),
+                ('recorder', models.CharField(max_length=200, null=True)),
+                ('counter', models.CharField(max_length=200, null=True, blank=True)),
+                ('inventory', models.ForeignKey(to='rapid.Inventory', null=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Species',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(default=b'NONE', max_length=200)),
+                ('status', models.CharField(max_length=200, null=True, blank=True)),
+                ('source', models.CharField(max_length=200, null=True, blank=True)),
+                ('genus', models.ForeignKey(to='rapid.Genus')),
+            ],
+            options={
+                'verbose_name_plural': 'Species',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='TaxonSet',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('container', models.CharField(max_length=50, null=True)),
+                ('note', models.CharField(max_length=200, null=True, blank=True)),
+                ('startTime', models.DateTimeField(auto_now_add=True)),
+                ('endTime', models.DateTimeField(null=True, verbose_name=b'end time of taxon set - when submitted', blank=True)),
+                ('count', models.CharField(default=b'0', max_length=3)),
+                ('family', models.ForeignKey(to='rapid.Family', null=True)),
+                ('folder', models.ForeignKey(to='rapid.FolderType', null=True)),
+                ('genus', models.ForeignKey(to='rapid.Genus', null=True)),
+                ('group', models.ForeignKey(to='rapid.Group', null=True)),
+                ('session', models.ForeignKey(to='rapid.Session', null=True)),
+                ('species', models.ForeignKey(to='rapid.Species', null=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='family',
+            name='group',
+            field=models.ForeignKey(to='rapid.Group', null=True),
+            preserve_default=True,
+        ),
+    ]

@@ -1,0 +1,26 @@
+taxa:<br />
+group: {{ taxaDict.group_id }}<br />
+<br />
+family_id: {{ taxaDict.family_id }}<br />
+{% for family in families %}
+    {{ family.pk}}: {{ family.name}}<br />
+{% empty %}
+No families<br />
+{% endfor %}
+<br />
+genus_id: {{ taxaDict.genus_id }}<br />
+{% for genus in genera %}
+    {{ genus.pk}}: {{ genus.name}}<br />
+{% empty %}
+No genera<br />
+{% endfor %}
+<br />
+species_id: {{ taxaDict.species_id }}<br />
+{% for specific_epithet in species %}
+    {{ specific_epithet.pk}}: {{ specific_epithet.name}}<br />
+{% empty %}
+No species<br />
+{% endfor %}
+<br />
+count: {{ taxaDict.count }}<br />
+</p>

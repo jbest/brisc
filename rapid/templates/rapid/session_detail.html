@@ -1,0 +1,68 @@
+{% load bootstrap3 %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% bootstrap_css %}
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.2">
+    <title>BRIT Inventory</title>
+  </head>
+ <body>
+ 	
+<div class="container">
+<h2>Session {{ session.id }} - by {{ session.recorder }} , {{ session.counter }} </h2>
+Your inventory session has begun. Press the New Taxon Count button below to conduct your first count.<br />
+<br />
+<a class="btn btn-primary" role="button" href="{% url 'count' %}">New Taxon Count</a>
+<h3>Session Details</h3>
+<p>
+Session start: {{ session.startTime }}<br /> 
+Session end: {% if session.endTime %}{{session.endTime}}{% else %} Session is active {% endif %}<br />
+Session duration: {{ session.durationMinutes|floatformat }} minutes<br />
+Taxon sets counted: {{ session.getCount }}<br />
+Sets per minute: {{ session.setsPerMin }}<br />
+Specimens counted: {{ session.getSpecimensCounted }}<br />
+Specimens per minute: {{ session.specimensPerMin }}<br />
+</p>
+<p>
+  <a class="btn btn-default" role="button" href="{% url 'inventory_detail' session.inventory_id %}">Inventory Details</a> 
+  <a class="btn btn-default" role="button" href="{% url 'index' %}">BRISC Home</a>
+<br />
+<br />
+<a class="btn btn-default" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  Show counts in this session
+</a>
+
+<div class="collapse" id="collapseExample">
+  <div class="well">
+    <table class="table-bordered table-condensed">
+      <thead>
+        <th>ID</th>
+        <th>Count</th>
+        <th>Taxonomy</th>
+        <th>Folder</th>
+        <th>Cabinet</th>
+        <th>Notes</th>
+      </thead>
+      <tbody>
+{% for taxonSet in taxonSet_list %}
+<tr>
+<td><a href="{% url 'count_detail' taxonSet.id %}">{{ taxonSet.id }}</a></td>
+<td>{{ taxonSet.count }}</td>
+<td>{{ taxonSet.group }} {{ taxonSet.family }} {{ taxonSet.genus }} {{ taxonSet.species }}</td>
+<td>{{ taxonSet.folder }}</td>
+<td>{{ taxonSet.container }}</td>
+<td>{{ taxonSet.note }}</td>
+</tr>
+{% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</p>
+</div>
+</body>
+</html>

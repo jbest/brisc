@@ -1,0 +1,67 @@
+{% load bootstrap3 %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% bootstrap_css %}
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.2">
+    <title>BRIT Inventory</title>
+  </head>
+ <body>
+ 	
+<div class="container">
+{% if msg %}
+<div class="alert alert-success" role="alert">{{ msg }}</div>
+{% endif %}
+<h3>Inventory: {{ inventory.id }} - 
+{{ inventory.description }}
+</h3>
+<p>
+
+<br />
+  <a class="btn btn-default" role="button" href="{% url 'inventory_detail' inventory.id %}">Back to Inventory Detail</a>
+  <a class="btn btn-default" role="button" href="{% url 'inventory_stats_export' inventory.id %}">Export Inventory Stats</a>
+  <a class="btn btn-default" role="button" href="{% url 'index' %}">BRISC Home</a>
+<br />
+<br />
+<h4>Statistics</h4>
+Inventory count: {{inventory_specimen_count}}<br />
+Sessions: {{inventory_session_count}}<br />
+
+    <table class="table-bordered table-condensed">
+      <thead>
+        <th>Session</th>
+        <th>Recorder</th>
+        <th>Counter</th>
+        <th>Start</th>
+        <th>Duration (mins.)</th>
+        <th>Sets</th>
+        <th>Sets/Min</th>
+        <th>Specimens</th>
+        <th>Specimens/Min</th>
+      </thead>
+      <tbody>
+{% for session in session_list %}
+<tr>
+<td><a href="{% url 'session_detail' session.id %}">{{session.id}}</a></td>
+<td>{{ session.recorder }}</td>
+<td>{{ session.counter }}</td>
+<td>{{ session.startTime }}</td>
+<td>{{ session.durationMinutes|floatformat:2 }}</td>
+<td>{{ session.getCount }}</td>
+<td>{{ session.setsPerMin }}</td>
+<td>{{ session.getSpecimensCounted }}</td>
+<td>{{ session.specimensPerMin }}</td>
+</tr>
+{% endfor %}
+      </tbody>
+    </table>
+
+
+</p>
+</div>
+</body>
+</html>

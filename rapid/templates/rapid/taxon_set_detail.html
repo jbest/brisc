@@ -1,0 +1,57 @@
+{% load bootstrap3 %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% bootstrap_css %}
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.2">
+    <title>BRIT Inventory</title>
+  </head>
+ <body>
+ 	
+<div class="container">
+<h2>Taxon Count : {{ taxonset.id }}</h2>
+<h3>Location</h3>
+Cabinet: {{ taxonset.container }}<br /> 
+Folder: {{ taxonset.folder }}<br /> 
+
+<h3>Taxonomy</h3>
+group: {{ taxonset.group }}<br />
+family: {{ taxonset.family }}<br /> 
+genus: {{ taxonset.genus }}<br /> 
+species: {{ taxonset.species }}<br /> 
+count: {{ taxonset.count }}<br /> 
+notes: {{ taxonset.note }}<br /> 
+<h3>Other</h3>
+
+Start: {{ taxonset.startTime }}<br /> 
+End: {{ taxonset.endTime }}<br /> 
+
+<a class="btn btn-primary" href="{% url 'count_edit' taxonset.pk %}">Edit count details</a> <a class="btn btn-default" role="button" href="{% url 'session_detail' taxonset.session_id %}">Session Page</a>  <a class="btn btn-default" role="button" href="{% url 'index' %}">BRISC Home</a> <br /><br /> 
+
+<a class="btn btn-default" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  Show session and inventory details
+</a><br /> <br /> 
+
+<div class="collapse" id="collapseExample">
+  <div class="well">
+<h3>Session info:</h3>
+Session id: {{ taxonset.session_id }} <a href="{% url 'session_detail' taxonset.session_id %}">Session detail</a><br /><br /> 
+Recorder: {{ taxonset.session.recorder }}<br /> 
+Recorder: {{ taxonset.session.counter }}<br /> 
+Start: {{ taxonset.session.startTime }}<br /> 
+End: {{ taxonset.session.endTime }}<br /> 
+Specimen count:  {{ taxonset.session.getSpecimensCounted }}<br /> 
+Taxon Set Count:  {{ taxonset.session.getCount }}<br /> 
+<h3>Inventory info:</h3>
+Inventory id: {{ taxonset.session.inventory_id }}<br /> 
+Inventory description: {{ taxonset.session.inventory.description }}<br /> 
+  </div>
+</div>
+</p>
+</div>
+</body>
+</html>

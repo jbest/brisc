@@ -1,0 +1,31 @@
+{% load bootstrap3 %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% bootstrap_css %}
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.2">
+    <title>BRIT Inventory</title>
+  </head>
+ <body>
+<div class="container">
+
+    <h2>Welcome...</h2>
+<p>
+	Welcome to the BRIT Rapid Inventory of Specimen Collections (BRISC)
+</p>
+Select an inventory below:<br /><br />
+{% if inventory_list %}
+    {% for inventory in inventory_list %}
+    <a class="btn btn-primary" role="button" href="{% url 'inventory_detail' inventory.id %}">{{ inventory.description }}</a><br /><br />
+
+    {% endfor %}
+{% else %}
+    <p>No inventories are available.</p>
+{% endif %}
+</div>
+</body>
+</html>

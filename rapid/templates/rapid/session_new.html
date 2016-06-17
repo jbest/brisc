@@ -1,0 +1,37 @@
+{% load bootstrap3 %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% bootstrap_css %}
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.2">
+    <title>BRIT Inventory</title>
+  </head>
+ <body>
+ 	
+<div class="container">
+<h3>New Session</h3>
+Begin your new session at the assigned cabinet. Don't forget:
+<ul>
+<li>Enter the cabinet number after you start the new session</li>
+<li>Select the correct folder type at the beginning of each session</li>
+<li>Update the folder type dropdown when the folder type changes during this session</li>
+</ul>
+
+<form action="{% url 'new_session' %}" method="post">
+{% csrf_token %}
+<h3>Team details</h3>
+(please enter your name or initials)
+<p>
+Recorder: <input type="text" name="recorder" value=''>
+</p><p>
+Counter: <input type="text" name="counter" value=''>
+</p>
+<input class="btn btn-primary" role="button"  type="submit" value="Start session" />
+</form>
+</div>
+</body>
+</html>
