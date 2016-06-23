@@ -15,8 +15,9 @@ virtualenv env
 source env/bin/activate
 pip install -r requirements-local.txt
 python manage.py runserver 127.0.0.1:8000
-go to http://127.0.0.1:8000
+go to http://127.0.0.1:8000 in your web browser
+Django admin login at http://127.0.0.1:8000/admin/ with username admin, password admin
 ```
 
 
-The majority of the taxon names were generously provided by Tropicos (Tropicos.org, Missouri Botanical Garden, 08 Apr 2016, www.tropicos.org). 
+The majority of the taxon names were generously provided by Tropicos (Tropicos.org, Missouri Botanical Garden, 12 Feb 2015, www.tropicos.org). 
