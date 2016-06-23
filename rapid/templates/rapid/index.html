@@ -12,7 +12,7 @@
   </head>
   <body {% block body_extension %}{% endblock %}>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -33,12 +33,9 @@
     </div>
 
     <div class="container">
-  {% block breadcrumb %}
- <!-- put breadcrumb here -->
-  {% endblock %}
   {% block content %}
  <!-- put content here -->
-     <h2>Welcome...</h2>
+     <h2>Welcome to BRISC</h2>
 <p>
     Welcome to the BRIT Rapid Inventory of Specimen Collections (BRISC)
 </p>
@@ -50,6 +47,7 @@ Select an inventory below:<br /><br />
     {% endfor %}
 {% else %}
     <p>No inventories are available.</p>
+    <p>An administrator must create an inventory.</p>
 {% endif %}
   {% endblock %}
   <!-- footer -->
