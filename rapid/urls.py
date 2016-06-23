@@ -4,6 +4,7 @@ from rapid import views
 
 urlpatterns = patterns('',
     url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^about/$', views.AboutView.as_view(), name='about'),
     url(r'^new/$', views.new_inventory, name='new_inventory'),
     url(r'^(?P<pk>\d+)/$', views.InventoryDetail.as_view(), name='inventory_detail'),
     url(r'^(?P<pk>\d+)/stats$', views.InventoryStats.as_view(), name='inventory_stats'),

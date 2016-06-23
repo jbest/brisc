@@ -25,6 +25,8 @@ class IndexView(generic.ListView):
         """Return the inventories."""
         return Inventory.objects.all()
 
+class AboutView(generic.TemplateView):
+    template_name = 'rapid/about.html'
 
 class InventoryDetail(generic.DetailView):
     model = Inventory

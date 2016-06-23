@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.2">
     <title>BRISC</title>
   </head>
-  <body {% block body_extension %}{% endblock %}>
+
+<body {% block body_extension %}{% endblock %}>
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -32,33 +33,15 @@
       </div>
     </div>
 
-    <div class="container">
-  {% block breadcrumb %}
- <!-- put breadcrumb here -->
-  {% endblock %}
-  {% block content %}
- <!-- put content here -->
-     <h2>Welcome...</h2>
+<div class="container">
+<h3>About BRISC</h3>
 <p>
-    Welcome to the BRIT Rapid Inventory of Specimen Collections (BRISC)
+BRISC is being developed at the Botanical Research Institute of Texas (BRIT) and is released under an open source license at <a target="_blank" href="https://github.com/jbest/brisc">https://github.com/jbest/brisc</a>
 </p>
-Select an inventory below:<br /><br />
-{% if inventory_list %}
-    {% for inventory in inventory_list %}
-    <a class="btn btn-primary" role="button" href="{% url 'inventory_detail' inventory.id %}">{{ inventory.description }}</a><br /><br />
-
-    {% endfor %}
-{% else %}
-    <p>No inventories are available.</p>
-{% endif %}
-  {% endblock %}
-  <!-- footer -->
-<br style="clear:both;">
-<hr />
-
-
-    </div><!-- /.container -->
-
-
+<h3>About the BRIT Inventory</h3>
+<p>
+BRISC was used for the inventory of the BRIT herbarium in 2015. For details and results of this inventory, please visit <a target="_blank" href="http://www.brit.org/herbarium/inventory">www.brit.org/herbarium/inventory</a>.
+</p>
+</div><!-- /.container -->
 </body>
 </html>
