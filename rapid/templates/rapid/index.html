@@ -1,41 +1,7 @@
-{% load bootstrap3 %}
+{% extends "base.html" %}
 
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {% bootstrap_css %}
-    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    {% bootstrap_javascript %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.2">
-    <title>BRISC</title>
-  </head>
-  <body {% block body_extension %}{% endblock %}>
-
-    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ BASE_URL }}/">BRISC</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-
-    <div class="container">
-  {% block content %}
- <!-- put content here -->
-     <h2>Welcome to BRISC</h2>
+{% block content %}
+<h2>Welcome to BRISC</h2>
 <p>
     Welcome to the BRIT Rapid Inventory of Specimen Collections (BRISC)
 </p>
@@ -49,14 +15,5 @@ Select an inventory below:<br /><br />
     <p>No inventories are available.</p>
     <p>An administrator must create an inventory.</p>
 {% endif %}
-  {% endblock %}
-  <!-- footer -->
-<br style="clear:both;">
-<hr />
 
-
-    </div><!-- /.container -->
-
-
-</body>
-</html>
+{% endblock %}

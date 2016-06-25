@@ -1,38 +1,8 @@
-{% load bootstrap3 %}
+{% extends "base.html" %}
 
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {% bootstrap_css %}
-    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    {% bootstrap_javascript %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.2">
-    <title>BRISC</title>
-  </head>
-<body {% block body_extension %}{% endblock %}>
+{% block content %}
+ 
 
-    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ BASE_URL }}/">BRISC</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-
-<div class="container">
 <h3>About BRISC</h3>
 <img src="http://i.imgur.com/6mNgDEA.jpg" class="pull-right">
 <p>
@@ -55,6 +25,4 @@ Thanks to BRIT administrators for recognizing the importance of the inventory an
 <p>
 The primary taxon names were generously provided by Tropicos (Tropicos.org, Missouri Botanical Garden, 12 Feb 2015, www.tropicos.org) Additional taxon names were introduced through the inventory process.
 </p>
-</div><!-- /.container -->
-</body>
-</html>
+{% endblock %}
