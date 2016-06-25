@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
+
 #import datetime
 from django.utils import timezone
 from django.shortcuts import redirect
@@ -130,7 +132,7 @@ class TaxonSetDetail(generic.DetailView):
     model = TaxonSet
     template_name = 'rapid/taxon_set_detail.html'
 
-
+@login_required
 def new_inventory(request):
 # based on https://docs.djangoproject.com/en/1.7/topics/forms/#building-a-form-in-django
 # if this is a POST request we need to process the form data
@@ -149,7 +151,7 @@ def new_inventory(request):
 
     return render(request, 'rapid/inventory_new.html', {'form': form})
 
-
+@login_required
 def new_session(request):
     current_inventory = request.session['current_inventory']
     if request.method == 'POST':
@@ -161,7 +163,7 @@ def new_session(request):
         #return redirect('index')
     return render(request, 'rapid/session_new.html')
 
-
+@login_required
 def new_sessionOLD(request):
 # based on https://docs.djangoproject.com/en/1.7/topics/forms/#building-a-form-in-django
 # if this is a POST request we need to process the form data
@@ -182,7 +184,7 @@ def new_sessionOLD(request):
 
     return render(request, 'rapid/session_new.html', {'form': form})
 
-
+@login_required
 def end_session(request):
     current_session = request.session.get('current_session')
     current_inventory = request.session.get('current_inventory')
@@ -203,6 +205,8 @@ def end_session(request):
     #return render(request, 'rapid/session_new.html', {'form': form})
 
     # Not using this now
+
+@login_required
 def new_taxon_set(request):
 # based on https://docs.djangoproject.com/en/1.7/topics/forms/#building-a-form-in-django
 # if this is a POST request we need to process the form data
@@ -239,7 +243,7 @@ def new_taxon_set(request):
     #form.cleaned_data['count'] = None
     return render(request, 'rapid/taxon_set_new.html', {'form': form})
 
-
+@login_required
 def new_taxon(request):
     #parent_rank=request.GET.get('parent_rank')
     #parent_id=request.GET.get('parent_id')

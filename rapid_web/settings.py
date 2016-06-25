@@ -57,6 +57,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'rapid_web.urls'
 
+LOGIN_URL = '/login/'
+
 WSGI_APPLICATION = 'rapid_web.wsgi.application'
 
 
@@ -95,6 +97,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates/')] #Added for login and account pages
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
